@@ -1,0 +1,51 @@
+A3-32:
+    because when it is initialized, it's on the Data segment of the memory, affecting the binary size of the program. Unlinke not-init variables, which are on the BSS segment, and don't affect the binary size of the program.
+
+A3-33:
+    when assigned w/o a '/0' (nullterminator) it's saved in the data segment. -> affects binary size
+    when assigned with a '/0' (nullterminator) it's saved in the BSS segment. -> doesn't affect binary size
+
+A3-46:
+    Malloc allocates memory dynamically on the heap while running the program. Affecting heap memory, but not binary size.
+
+A3-48:
+    Malloc uses virtual memory, and returns 0 (NULL) if there isn't enough memory available to allocate the requested size.
+    -> nachfragen!!! ist 0 (int) oder NULL (pointer) gemeint?
+
+A3-49:
+    Malloc first reservates virtual memory. But until we access / work with it, it is just reserved and isn't using physical memory. Only when we access it, it is mapped to physical memory.
+
+A3-50:
+    Modern OS got something like a "garbage collector". It free's the memory, as soon as the programm ends, regardless whether or not the memory was freed manually.
+
+A3-55:
+    Normally the programm should get the same memory space but with ASLR (Address Space Layout Randomization) the memory space is randomized, so that it is harder for attackers to exploit the program.
+
+A3-57:
+    The stack got higher memory addresses 0x7.
+
+A3-59:
+    Heap is right above the BSS segment. See A3-58.c
+
+A3-60:
+    The stack grows downwards until it reaches a certain limit. This limit is set by the OS and not directly by the heap. (Stack overflow). Practically the stack can't grow until it reaches the heap because the OS will throw an StackOverflow before.
+
+A3-66:
+    0x7 is normally a stack address. But valgrind tells us it's not stacked. This most likely means that an variable is accessed out of its bounds. -> Stack Overflow
+
+A3-79:
+    0x1000 and 4096 bytes are the same. 0x1000 is just the hexadecimal representation of 4096 bytes. A page is a block of physical memory, which is used by the OS to manage memory to virtual memory and isolate processes from each other.
+
+A3-80:
+    w/o KASLR it should be 0xffffffff81000000. With KASLR 0xfffffff90000001 (or similar) could be possible. - Mit
+
+A3-85:
+    -malloc isn't shared while mmap is shared between processes.
+    -technically it's undefined behaviour. But most likely it's a segfault
+    -both are handles by OS
+    -you can free() malloc, but mmap is unmapped with munmap()
+    -both use system functions to allocate memory
+    -memory allocated by malloc (an by mmap if configured) can be moved to hard drive if paging is active
+
+
+
